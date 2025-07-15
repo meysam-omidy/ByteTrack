@@ -198,6 +198,9 @@ def image_demo(predictor, vis_folder, current_time, args):
                 outputs = outputs.cpu().numpy()
                 scores = outputs[:, 4] * outputs[:, 5]
                 bboxes = outputs[:, :4]  # x1y1x2y2
+            img_h, img_w = img_info['height'], img_info['width']
+            scale = min(exp.test_size[0] / float(img_h), exp.test_size[1] / float(img_w))
+            bboxes /= scale
             for i in range(len(bboxes)):
                 results_file.write(f'{int(frame_id)},{float(bboxes[i][0])},{float(bboxes[i][1])},{float(bboxes[i][2])},{float(bboxes[i][3])},{float(scores[i])}\n')
                 results.append([
