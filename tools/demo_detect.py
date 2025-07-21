@@ -184,7 +184,8 @@ def image_demo(predictor, vis_folder, current_time, args):
     tracker = BYTETracker(args, frame_rate=args.fps)
     timer = Timer()
     results = []
-    results_file = open('outputs.txt', 'w')
+    print(args.path.split('/')[-2])
+    results_file = open(f"{args.path.split('/')[-2]}.txt", 'w')
 
     for frame_id, img_path in enumerate(files, 1):
         outputs_, img_info = predictor.inference(img_path, timer)
